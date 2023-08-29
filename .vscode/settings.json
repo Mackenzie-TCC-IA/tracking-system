@@ -3,6 +3,10 @@
     "editor.defaultFormatter": "ms-python.autopep8",
     "editor.formatOnSave": true
   },
+  "python.languageServer": "Pylance",
   "python.analysis.typeCheckingMode": "basic",
-  "python.defaultInterpreterPath": "./venv/bin/python3"
+  "python.defaultInterpreterPath": "./venv/bin/python3",
+  "python.analysis.extraPaths": ["./venv/lib/python3.x/site-packages/"],
+  "python.analysis.indexing": true,
+  "python.analysis.autoImportCompletions": true
 }
