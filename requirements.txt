@@ -4,6 +4,7 @@ charset-normalizer==3.2.0
 cmake==3.27.2
 contourpy==1.1.0
 cycler==0.11.0
+docstring-parser==0.15
 filelock==3.12.3
 fonttools==4.42.1
 idna==3.4
@@ -48,6 +49,8 @@ torch==2.0.1
 torchvision==0.15.2
 tqdm==4.66.1
 triton==2.0.0
+typed-argument-parser==1.8.1
+typing-inspect==0.9.0
 typing_extensions==4.7.1
 tzdata==2023.3
 ultralytics==8.0.164

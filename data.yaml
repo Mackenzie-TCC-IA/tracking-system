@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['Person']
+
+roboflow:
+  workspace: chris-kydks
+  project: people-detection-2csbw
+  version: 11
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/chris-kydks/people-detection-2csbw/dataset/11
