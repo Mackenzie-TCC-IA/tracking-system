@@ -28,5 +28,5 @@ class YoloModel(BaseModel):
     def evaluate(self) -> Any:
         return self.model.val()
 
-    def predict(self, args: Any) -> Any:
-        return self.model.predict(args)
+    def predict(self, args: Any, use_nms: bool = False) -> Any:
+        return self.model.predict(args, agnostic_nms=use_nms)
