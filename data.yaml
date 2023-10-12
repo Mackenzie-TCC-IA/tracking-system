@@ -1,13 +1,13 @@
-train: ../train/images
-val: ../valid/images
-test: ../test/images
+train: ./datasets/general_dataset/train/images
+val: ./datasets/general_dataset/valid/images
+test: ./datasets/general_dataset/test/images
 
 nc: 1
-names: ['Person']
+names: ["Person"]
 
 roboflow:
-  workspace: chris-kydks
-  project: people-detection-2csbw
-  version: 11
+  workspace: mackenzie
+  project: people-detection-mnefp
+  version: 3
   license: CC BY 4.0
-  url: https://universe.roboflow.com/chris-kydks/people-detection-2csbw/dataset/11
+  url: https://universe.roboflow.com/mackenzie/people-detection-mnefp/dataset/3

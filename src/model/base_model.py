@@ -26,5 +26,5 @@ class BaseModel(ABC):
         pass
 
     @abstractmethod
-    def predict(self, args: Any) -> Any:
+    def predict(self, args) -> Any:
         pass
