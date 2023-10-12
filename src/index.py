@@ -1,7 +1,7 @@
 from arguments import YoloPeopleRecognitionArgs
 from model.yolo_model import YoloModel
-from services.image_predict_service import ImagePredictService
-from services.video_predict_service import VideoPredictService
+from services.predict_service.image_predict_service import ImagePredictService
+from services.predict_service.video_predict_service import VideoPredictService
 from utils.get_file_path import get_file_path
 
 

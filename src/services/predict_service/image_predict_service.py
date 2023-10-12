@@ -1,5 +1,5 @@
 from model.base_model import BaseModel
-from services.predict import PredictService
+from services.predict_service.predict import PredictService
 from utils.get_file_path import get_file_path
 from PIL import Image
 
