@@ -5,4 +5,4 @@ runs
 test
 train
 valid
-datasets/crowd_human
+datasets/*

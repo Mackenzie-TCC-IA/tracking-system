@@ -36,17 +36,20 @@ class VideoPredictService(PredictService):
         bounding_box_annotator = sv.BoxAnnotator(
             thickness=4, text_thickness=2, text_scale=1)
 
+        byte_tracker = sv.ByteTrack()
+
         video_result_path = get_file_path(f'results/videos/{video_name}')
 
         with sv.VideoSink(target_path=video_result_path, video_info=video_info) as sink:
             for frame in tqdm(video_frame_generator, total=video_info.total_frames):
-                result = self.model.predict(frame)[0]
+                results = self.model.predict(frame)[0]
 
-                detections = sv.Detections.from_yolov8(result)
+                detections = sv.Detections.from_yolov8(results)
+                detections = byte_tracker.update_with_detections(detections)
 
                 labels = [
-                    f'{self.CLASSES[class_id]} - {confidence:0.2f}'
-                    for _, _, confidence, class_id, _ in detections
+                    f'#{track_id} {self.CLASSES[class_id]} - {confidence:0.2f}'
+                    for _, _, confidence, class_id, track_id in detections
                 ]
 
                 frame = bounding_box_annotator.annotate(

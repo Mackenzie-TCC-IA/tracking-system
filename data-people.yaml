@@ -1,0 +1,12 @@
+train: ./datasets/people/train/images
+val: ./datasets/people/valid/images
+
+nc: 2
+names: ["0", "1"]
+
+roboflow:
+  workspace: mackenzie
+  project: people-detection-hpqvt
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/mackenzie/people-detection-hpqvt/dataset/1

@@ -32,4 +32,4 @@ class YoloModel(BaseModel):
         return self.model.predict(args, agnostic_nms=use_nms)
 
     def track(self, args: Any) -> Any:
-        return self.model.track(args, persist=True)
+        return self.model.track(args, persist=True, tracker="bytetrack.yaml")
