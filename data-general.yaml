@@ -1,0 +1,13 @@
+train: ../datasets/general_dataset/train/images
+val: ../datasets/general_dataset/valid/images
+test: ../datasets/general_dataset/test/images
+
+nc: 1
+names: ["Person"]
+
+roboflow:
+  workspace: mackenzie
+  project: people-detection-mnefp
+  version: 3
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/mackenzie/people-detection-mnefp/dataset/3

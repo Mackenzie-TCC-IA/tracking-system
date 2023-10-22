@@ -10,6 +10,7 @@ class ModelProps(TypedDict):
 
 
 class BaseModel(ABC):
+    model: Any
     model_name: str
     dataset_path: str
 
@@ -27,4 +28,8 @@ class BaseModel(ABC):
 
     @abstractmethod
     def predict(self, args) -> Any:
+        pass
+
+    @abstractmethod
+    def track(self, args) -> Any:
         pass

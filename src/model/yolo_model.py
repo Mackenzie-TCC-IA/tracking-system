@@ -30,3 +30,6 @@ class YoloModel(BaseModel):
 
     def predict(self, args: Any, use_nms: bool = False) -> Any:
         return self.model.predict(args, agnostic_nms=use_nms)
+
+    def track(self, args: Any) -> Any:
+        return self.model.track(args, persist=True)

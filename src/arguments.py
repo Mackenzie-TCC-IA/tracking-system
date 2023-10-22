@@ -1,3 +1,4 @@
+from typing import Literal
 from tap import Tap
 
 
@@ -7,10 +8,9 @@ class YoloPeopleRecognitionArgs(Tap):
     train_folder: str = 'train'
     dataset: str = 'data.yaml'
     epochs: int = 3
-    mode: str = 'image'
+    mode: Literal['image', 'video', 'stream'] = 'image'
     image_name: str = ''
     video_name: str = ''
-    use_webcam = False
 
 
 class CrowdHumanDownloaderArgs(Tap):
