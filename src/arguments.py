@@ -10,3 +10,9 @@ class YoloPeopleRecognitionArgs(Tap):
     mode: str = 'image'
     image_name: str = ''
     video_name: str = ''
+    use_webcam = False
+
+
+class CrowdHumanDownloaderArgs(Tap):
+    download: bool = False
+    extract: bool = False

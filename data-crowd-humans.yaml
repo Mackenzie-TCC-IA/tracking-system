@@ -1,0 +1,5 @@
+train: ./datasets/crowd_human/train/images
+val: ./datasets/crowd_human/valid/images
+
+nc: 1
+names: ["Person"]
