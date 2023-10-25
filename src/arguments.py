@@ -6,7 +6,7 @@ class YoloPeopleRecognitionArgs(Tap):
     use_pre_trained: bool = False
     model: str = 'yolov8n.pt'
     train_folder: str = 'train'
-    dataset: str = 'data.yaml'
+    dataset: str = 'data-crowd-humans.yaml'
     epochs: int = 3
     mode: Literal['image', 'video', 'stream'] = 'image'
     image_name: str = ''

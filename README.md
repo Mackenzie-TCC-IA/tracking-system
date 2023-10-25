@@ -17,6 +17,11 @@ Execute o script pela raiz do projeto: `./scripts/install.sh <Biblioteca>`
 Execute o script pela raiz do projeto: `./scrips/execute.sh`. Utilize os seguintes argumentos:
 
 - `--use_pre_trained`: `True` or `False`. Descrição: faz o modelo utilizar o melhor treinamento já realizado.
+- `--model`: Indica o modelo a ser utilizado. Por padrão será o `yolov8n.pt`
+- `--dataset`: Indica o dataset a ser utilizado. Por padrão será o `data-crowd-humans.pt`
+- `--epochs`: Indica quanta épocas o modelo será treinado. O modelo só é treinado quando o parâmetro `--use-pre-trained` não é passado.
+- `mode`: `image`, `video` ou `stream`: Indica o modo que o modelo será executado para detecção.
+- `video_name` e `image_name`: Nome do arquivo para ser utilizado.
 
 ## 🧑 • Colaborades
 
