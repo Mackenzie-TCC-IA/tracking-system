@@ -2,7 +2,6 @@ autopep8==2.0.2
 beautifulsoup4==4.12.2
 certifi==2023.7.22
 charset-normalizer==3.2.0
-clip @ git+https://github.com/openai/CLIP.git@a1d071733d7111c9c014f024669f959182114e33
 cmake==3.27.2
 contourpy==1.1.0
 cycler==0.11.0
@@ -16,7 +15,6 @@ gdown==4.7.1
 idna==3.4
 Jinja2==3.1.2
 kiwisolver==1.4.5
-lap==0.4.0
 lapx==0.5.5
 lit==16.0.6
 MarkupSafe==2.1.3

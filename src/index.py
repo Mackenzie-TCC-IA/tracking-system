@@ -3,6 +3,7 @@ from model.yolo_model import YoloModel
 from services.predict_service.image_predict_service import ImagePredictService
 from services.predict_service.stream_predict_service import StreamPredictService
 from services.predict_service.video_predict_service import VideoPredictService
+from utils.get_file_path import get_file_path
 
 
 if __name__ == '__main__':
@@ -10,7 +11,7 @@ if __name__ == '__main__':
 
     model = YoloModel({
         'model_name': arguments.model,
-        'dataset_path': arguments.dataset
+        'dataset_path': get_file_path(arguments.dataset)
     })
 
     model.train(arguments.train_folder, arguments.epochs,
