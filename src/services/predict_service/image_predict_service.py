@@ -1,11 +1,17 @@
 import os
+import cv2
 from model.base_model import BaseModel
 from services.predict_service.predict import PredictService
 from utils.get_file_path import get_file_path
 from PIL import Image
+import supervision as sv
 
 
 class ImagePredictService(PredictService):
+    CLASSES = {
+        0: "Person"
+    }
+
     def __init__(self, model: BaseModel, train_folder: str) -> None:
         super().__init__(model)
         self.train_folder = train_folder
@@ -15,13 +21,19 @@ class ImagePredictService(PredictService):
 
         image_file_path = get_file_path(
             f'images/{image_name}')
+        img = cv2.imread(image_file_path)
 
         results = self.model.predict(image_file_path)
 
-        for result in results:
-            im_array = result.plot()
-            image = Image.fromarray(im_array[..., ::-1])
-            image.save(os.path.join(self.result_folder, image_name))
+        detections = sv.Detections.from_yolov8(results[0])
+
+        labels = [f'{self.CLASSES[class_id]} {confidence:0.2f}' for _, _, confidence, class_id, _ in detections]
+
+        bounding_box_annotator = sv.BoxAnnotator(thickness=4)
+        frame = bounding_box_annotator.annotate(scene=img, labels=labels, detections=detections, skip_label=True)
+
+        image = Image.fromarray(frame[..., ::-1])
+        image.save(os.path.join(self.result_folder, image_name))
 
     def create_result_folder(self) -> None:
         self.result_folder = os.path.join(

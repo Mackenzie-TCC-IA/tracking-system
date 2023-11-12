@@ -48,15 +48,11 @@ class VideoPredictService(PredictService):
                 detections = byte_tracker.update_with_detections(detections)
 
                 labels = [
-                    f'#{track_id} {self.CLASSES[class_id]} - {confidence:0.2f}'
+                    f'#{track_id}'
                     for _, _, confidence, class_id, track_id in detections
                 ]
 
                 frame = bounding_box_annotator.annotate(
                     scene=frame, detections=detections, labels=labels)
-
-                zone.trigger(detections=detections)
-
-                frame = zone_annotator.annotate(scene=frame)
 
                 sink.write_frame(frame=frame)

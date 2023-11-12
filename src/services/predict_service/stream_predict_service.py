@@ -1,9 +1,10 @@
-from ast import Tuple
+import json
+from typing import Any
 import cv2
+from websockets import WebSocketServerProtocol
 from model.base_model import BaseModel
 from services.predict_service.predict import PredictService
 from utils.get_file_path import get_file_path
-from deep_sort_realtime.deepsort_tracker import DeepSort
 from time import time
 import supervision as sv
 
@@ -13,10 +14,14 @@ class StreamPredictService(PredictService):
         0: 'Person'
     }
 
+    current_detections: dict[str, Any] = {}
+
+    websocket: WebSocketServerProtocol | None = None
+
     def __init__(self, model: BaseModel) -> None:
         super().__init__(model)
 
-    def predict(self, video_name: str) -> None:
+    async def predict(self, video_name: str) -> None:
         is_webcam = len(video_name) == 0
 
         capture = cv2.VideoCapture(
@@ -28,7 +33,7 @@ class StreamPredictService(PredictService):
             capture.set(cv2.CAP_PROP_FPS, 30)
 
         bounding_box_annotator = sv.BoxAnnotator(
-            thickness=4, text_thickness=2, text_scale=1)
+            thickness=4, text_thickness=2, text_scale=0.7)
 
         byte_tracker = sv.ByteTrack()
 
@@ -44,8 +49,43 @@ class StreamPredictService(PredictService):
                 detections = sv.Detections.from_yolov8(results)
                 detections = byte_tracker.update_with_detections(detections)
 
+                parsed_detections = dict(
+                    [(str(track_id), 'Unknown') for track_id in detections.tracker_id])
+
+                if len(self.current_detections) == 0:
+                    self.current_detections = parsed_detections
+                    if self.websocket:
+                        await self.websocket.send(json.dumps({'type': 'detections',
+                                                              'data': self.current_detections}))
+                else:
+                    new_current_detections_ids = set(parsed_detections.keys())
+                    current_detection_ids = set(
+                        self.current_detections.keys())
+
+                    new_ids = new_current_detections_ids - current_detection_ids
+                    removed_ids = current_detection_ids - new_current_detections_ids
+
+                    for new_id in new_ids:
+                        self.current_detections[new_id] = 'Unknown'
+
+                    for remove_id in removed_ids:
+                        self.current_detections.pop(remove_id)
+
+                    if self.websocket:
+                        if len(new_ids) > 0:
+                            await self.websocket.send(json.dumps({
+                                'type': 'new_detections',
+                                'data': list(new_ids)
+                            }))
+
+                        if len(removed_ids) > 0:
+                            await self.websocket.send(json.dumps({
+                                'type': 'removed_detections',
+                                'data': list(removed_ids)
+                            }))
+
                 labels = [
-                    f'#{track_id} {self.CLASSES[class_id]} {confidence:0.2f} '
+                    f'#{track_id} {self.current_detections[str(track_id)]} '
                     for _, _, confidence, class_id, track_id in detections
                 ]
 
@@ -67,3 +107,9 @@ class StreamPredictService(PredictService):
 
         capture.release()
         cv2.destroyAllWindows()
+
+    def set_websocket(self, websocket: WebSocketServerProtocol) -> None:
+        self.websocket = websocket
+
+    def change_name(self, id: str, new_name: str) -> None:
+        self.current_detections[id] = new_name

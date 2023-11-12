@@ -43,7 +43,8 @@ class CrowdHumanDownloader:
         self.unzip_files(extract)
 
         self.merge_folders(CrowdHumanFiles.train.value, [
-                           CrowdHumanFiles.train01.value, CrowdHumanFiles.train02.value, CrowdHumanFiles.train03.value])
+                           CrowdHumanFiles.train01.value, CrowdHumanFiles.train02.value, CrowdHumanFiles.train03.value
+                           ])
 
         self.normalize_folder(CrowdHumanFiles.train.value, 'train')
         self.normalize_folder(CrowdHumanFiles.val.value, 'valid')
@@ -182,7 +183,7 @@ class CrowdHumanDownloader:
             image = cv2.imread(os.path.join(
                 to_folder_images_path, f'{image_id}.jpg'))
 
-            image_heigth, image_width, _ = image.shape
+            image_height, image_width, _ = image.shape
 
             for gtbox in current_annotation_data['gtboxes']:
                 if gtbox['tag'] == 'mask':
@@ -195,19 +196,19 @@ class CrowdHumanDownloader:
                 x = max(int(x), 0)
                 y = max(int(y), 0)
                 width = min(int(width), image_width - x)
-                heigth = min(int(heigth), image_heigth - y)
+                heigth = min(int(heigth), image_height - y)
 
                 center_x = (x + width / 2.)
                 center_y = (y + heigth / 2.)
 
                 normalized_width = float(width) / image_width
-                normalized_heigth = float(heigth) / image_heigth
+                normalized_height = float(heigth) / image_height
 
                 normalized_x = center_x / image_width
-                normalized_y = center_y / image_heigth
+                normalized_y = center_y / image_height
 
                 file_to_write.write(
-                    f'{cls} {normalized_x} {normalized_y} {normalized_width} {normalized_heigth}\n')
+                    f'{cls} {normalized_x} {normalized_y} {normalized_width} {normalized_height}\n')
 
             file_to_write.close()
 

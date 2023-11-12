@@ -1,11 +1,9 @@
 {
   "[python]": {
-    "editor.defaultFormatter": "ms-python.autopep8",
-    "editor.formatOnSave": true
+    "editor.defaultFormatter": "ms-python.autopep8"
   },
-  "python.languageServer": "Pylance",
-  "python.defaultInterpreterPath": "./venv/bin/python3",
-  "python.analysis.extraPaths": ["./venv/lib/python3.x/site-packages/"],
+  "python.analysis.typeCheckingMode": "off",
+  "mypy-type-checker.args": ["--ignore-missing-imports"],
   "python.analysis.indexing": true,
   "python.analysis.autoImportCompletions": true
 }

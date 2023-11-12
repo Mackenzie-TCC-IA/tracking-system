@@ -4,7 +4,7 @@ from tap import Tap
 
 class YoloPeopleRecognitionArgs(Tap):
     use_pre_trained: bool = False
-    model: str = 'yolov8n.pt'
+    model: str = 'yolov8s.pt'
     train_folder: str = 'train'
     dataset: str = 'data-crowd-humans.yaml'
     epochs: int = 3
